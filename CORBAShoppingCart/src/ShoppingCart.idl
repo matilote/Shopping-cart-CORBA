@@ -1,0 +1,39 @@
+module pl{
+    module edu{
+        module pjwstk{
+            module s17504{
+                module ShoppingCart{                
+
+                    struct Product{
+                        long id;
+                        string name;
+                        long amountOfStock;
+                    };
+
+                    struct ShoppingCartItem{
+                        long amount;
+                        Product product;
+                    };
+
+                    typedef sequence<Product> Products;
+                    typedef sequence<ShoppingCartItem> ShoppingCartItems;
+
+                    interface ShoppingCart {
+                    
+                    	exception ProductUnavailable { };               
+                    	
+                        readonly attribute ShoppingCartItems cart_items;
+                        readonly attribute Products getProducts;
+                        void addProductToCart(in ShoppingCartItem cart_items);
+                        Product newProduct(in long id, in string name, in long amountOfStock);
+                        void removeProduct(in long id);
+                        void changeProductAmount(in Product product, in long amountOfStock);
+                        void checkOut();
+                        Product find_product(in long id) raises (ProductUnavailable);
+                    };
+
+                };
+            };
+        };
+    };
+};
